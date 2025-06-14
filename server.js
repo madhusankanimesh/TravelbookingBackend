@@ -19,7 +19,11 @@ connectDB(); // connect to MongoDB
 const app = express();
 
 app.use(express.json()); // parse JSON
-app.use(cors()); // enable CORS
+app.use(cors({
+  origin: '*', // allow all origins (for development, restrict in production) 
+  credentials: true
+}));
+
 app.use(morgan("dev")); // request logging
 
 // mount our auth & user routes
@@ -38,7 +42,7 @@ app.use('/api/bookings', bookingRoutes);
 // global error handler (after routes)
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5002;
 app.listen(PORT, () =>
-  console.log(`🚀 Server running on http://localhost:${PORT}`)
+  console.log(`🚀 Server running `)
 );
